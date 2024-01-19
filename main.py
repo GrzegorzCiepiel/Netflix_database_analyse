@@ -23,15 +23,16 @@ print(f"Maximum budget is equal to: {df['est_budget (USD)'].max()}$")
 budget_scopes = ['small', 'medium', 'large', 'huge']
 
 def sort_budgets(budget):
-        if budget <= 500000:
+        if budget <= 700000:
             return 'small'
-        elif 500000 < budget <= 20000000:
+        elif 700000 < budget <= 30000000:
             return 'medium'
-        elif 2000000 < budget <= 60000000:
+        elif 30000000 < budget <= 80000000:
             return 'big'
         else:
             return 'huge'
 
 df['budget_scope'] = df['est_budget (USD)'].apply(lambda x: sort_budgets(x))
 
-print(df.head())
+
+print(df.head(30))
