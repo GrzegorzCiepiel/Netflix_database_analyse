@@ -29,10 +29,17 @@ def sort_budgets(budget):
             return 'medium'
         elif 30000000 < budget <= 80000000:
             return 'big'
+        elif df['est_budget (USD)'].min() > budget:
+            return 'no data'
         else:
             return 'huge'
 
 df['budget_scope'] = df['est_budget (USD)'].apply(lambda x: sort_budgets(x))
 
 
-print(df.head(30))
+print(df.head(5))
+
+print('Lets dig into empty values \n')
+
+print(df.isnull().sum())
+print(df[df.isnull().any(axis=1)])
