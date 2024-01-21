@@ -13,6 +13,6 @@ This movie dataset contains following informations about 8807 Netflix production
 Main goal is to find something interesting about this dataset.
 In this work I use following python modules: pandas, matplotlib.pyplot, seaborn anid scipy.stats
 
-##EDA
+## EDA
 
 
