@@ -1,8 +1,9 @@
 import pandas as pd
 pd.set_option('display.max_columns', None)
-from scipy.stats import trim_mean
+from scipy.stats import trim_mean, pearsonr
 import matplotlib.pyplot as plt
 import seaborn as sns
+
 
 df = pd.read_csv('netflix_movies.csv')
 print(df.shape)
@@ -46,7 +47,8 @@ print(df.head(5))
 print(df.budget_scope.value_counts())
 print(round((df.budget_scope.value_counts(normalize=True))*100), 2)
 print(df.budget_scope.isnull().sum())
-print(df['est_budget (USD)'].mean())
+bud_mean = df['est_budget (USD)'].mean()
+print(bud_mean)
 print(trim_mean(df['est_budget (USD)'], proportiontocut=0.1))
 print(df['est_budget (USD)'].median())
 budget_iqr = df['est_budget (USD)'].quantile(0.75) - df['est_budget (USD)'].quantile(0.25)
@@ -58,11 +60,12 @@ print(df['est_budget (USD)'].std())
 # plt.show()
 # plt.clf()
 
-# sns.histplot(data=df, x='est_budget (USD)')
-# plt.ylabel('Netflix productions')
-# plt.xlabel('Budgets in USD')
-# plt.show()
-# plt.clf()
+sns.histplot(data=df, x='est_budget (USD)')
+plt.axvline(bud_mean, color='r', linestyle='dashed')
+plt.ylabel('Netflix productions')
+plt.xlabel('Budgets in USD')
+plt.show()
+plt.clf()
 
 # df.budget_scope.value_counts().plot.pie()
 # plt.show()
@@ -86,3 +89,24 @@ print(df.type.unique())
 
 print(df.type.value_counts())
 print(df.type.value_counts(normalize=True))
+
+sns.boxplot(data=df, x='type', y='est_budget (USD)')
+plt.show()
+plt.clf()
+
+movies_budget = df['est_budget (USD)'][df.type == 'Movie']
+tvshow_budget = df['est_budget (USD)'][df.type == 'TV Show']
+
+plt.hist(movies_budget, label='Movie', alpha=0.4, density=True, color='red', bins=40)
+plt.hist(tvshow_budget, label='Tvshow', alpha=0.4, density=True, color='blue', bins=40)
+plt.xlabel('budget - 10 mln USD')
+plt.ylabel('Productions')
+plt.title('Budgets spread for Movies and TV Shows')
+plt.show()
+plt.clf()
+
+# sns.histplot(data=df, x=movies_budget, alpha=0.5, common_norm=True)
+# sns.histplot(data=df, x=tvshow_budget, alpha=0.5, common_norm=True)
+# plt.show()
+# plt.clf()
+
