@@ -21,5 +21,5 @@ In this work I use following python modules: pandas, matplotlib.pyplot, seaborn 
   + R  - restricted, children under 17 require accompanying parent or adult guardian
 
 ## EDA
-
+project in progress
 
